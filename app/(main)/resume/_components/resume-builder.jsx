@@ -24,8 +24,6 @@ import { useUser } from "@clerk/nextjs";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
 import { marked } from "marked";
-import { toPng } from "html-to-image";
-import { jsPDF } from "jspdf";
 
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
@@ -122,49 +120,109 @@ export default function ResumeBuilder({ initialContent }) {
     setIsGenerating(true);
 
     try {
-      const element = document.getElementById("resume-pdf");
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf"),
+      ]);
 
-      if (!element) {
-        console.error("Resume element not found");
-        return;
-      }
+      // Create a visible iframe so html2canvas can actually render content
+      const iframe = document.createElement("iframe");
+      iframe.style.position = "fixed";
+      iframe.style.top = "0";
+      iframe.style.left = "0";
+      iframe.style.width = "794px";
+      iframe.style.height = "1123px";
+      iframe.style.opacity = "0";
+      iframe.style.pointerEvents = "none";
+      iframe.style.zIndex = "-1";
+      document.body.appendChild(iframe);
 
-      // Wait for DOM paint (VERY IMPORTANT)
-      await new Promise((r) => setTimeout(r, 500));
+      // Write content into iframe
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      iframeDoc.open();
+      iframeDoc.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              color: #000000 !important;
+              background: transparent !important;
+              box-shadow: none !important;
+              text-shadow: none !important;
+              font-family: Arial, sans-serif !important;
+            }
+            body {
+              background: #ffffff !important;
+              color: #000000 !important;
+              padding: 40px;
+              width: 794px;
+              font-size: 14px;
+              line-height: 1.6;
+            }
+            h1 { font-size: 24px; margin-bottom: 8px; }
+            h2 { font-size: 18px; margin-bottom: 6px; margin-top: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+            h3 { font-size: 15px; margin-bottom: 4px; }
+            p  { margin-bottom: 8px; }
+            ul { margin-left: 20px; margin-bottom: 8px; }
+            li { margin-bottom: 4px; }
+            a  { color: #000000 !important; text-decoration: underline; }
+          </style>
+        </head>
+        <body>${htmlContent}</body>
+      </html>
+    `);
+      iframeDoc.close();
 
-      const dataUrl = await toPng(element, {
-        cacheBust: true,
-        pixelRatio: 2,
+      // Wait for iframe to fully render
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      const canvas = await html2canvas(iframeDoc.body, {
+        scale: 2,
         backgroundColor: "#ffffff",
+        useCORS: true,
+        logging: false,
+        width: 794,
+        windowWidth: 794,
       });
 
-      const pdf = new jsPDF("p", "mm", "a4");
+      document.body.removeChild(iframe);
+
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
 
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
-      const img = new Image();
-      img.src = dataUrl;
+      // Calculate how many pages we need
+      const canvasHeightMm = (canvas.height * pdfWidth) / canvas.width;
+      const totalPages = Math.ceil(canvasHeightMm / pdfHeight);
 
-      await new Promise((resolve) => {
-        img.onload = resolve;
-      });
+      for (let i = 0; i < totalPages; i++) {
+        if (i > 0) pdf.addPage();
 
-      const imgWidth = img.width;
-      const imgHeight = img.height;
+        pdf.addImage(
+          imgData,
+          "JPEG",
+          0,
+          -(i * pdfHeight),
+          pdfWidth,
+          canvasHeightMm,
+        );
+      }
 
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-
-      const width = imgWidth * ratio;
-      const height = imgHeight * ratio;
-
-      const x = (pdfWidth - width) / 2;
-      const y = 10;
-
-      pdf.addImage(dataUrl, "PNG", x, y, width, height);
       pdf.save("resume.pdf");
-    } catch (err) {
-      console.error("PDF generation error:", err);
+    } catch (error) {
+      console.error("PDF error:", error);
+      toast.error("Failed to generate PDF");
     } finally {
       setIsGenerating(false);
     }
@@ -439,7 +497,7 @@ export default function ResumeBuilder({ initialContent }) {
               preview={resumeMode}
             />
           </div>
-          <div
+          {/* <div
             id="resume-pdf"
             style={{
               width: "800px",
@@ -454,7 +512,7 @@ export default function ResumeBuilder({ initialContent }) {
                 __html: marked.parse(previewContent || ""),
               }}
             />
-          </div>
+          </div> */}
         </TabsContent>
       </Tabs>
     </div>
