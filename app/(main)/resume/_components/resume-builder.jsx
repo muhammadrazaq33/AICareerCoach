@@ -250,9 +250,10 @@ export default function ResumeBuilder({ initialContent }) {
         </h1>
         <div className="space-x-2">
           <Button
-            variant="destructive"
+            variant="outline"
             onClick={handleSubmit(onSubmit)}
             disabled={isSaving}
+            className="border-primary/80 hover:border-primary/40 hover:bg-primary/5 hover:text-[#000] bg-transparent cursor-pointer text-[#000]"
           >
             {isSaving ? (
               <>
@@ -266,7 +267,11 @@ export default function ResumeBuilder({ initialContent }) {
               </>
             )}
           </Button>
-          <Button onClick={generatePDF} disabled={isGenerating}>
+          <Button
+            onClick={generatePDF}
+            disabled={isGenerating}
+            className="cursor-pointer"
+          >
             {isGenerating ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -283,9 +288,35 @@ export default function ResumeBuilder({ initialContent }) {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="edit">Form</TabsTrigger>
-          <TabsTrigger value="preview">Markdown</TabsTrigger>
+        <TabsList
+          variant="outline"
+          className="inline-flex h-11 rounded-xl bg-primary/5 border border-primary/15 p-1"
+        >
+          <TabsTrigger
+            value="edit"
+            className="
+      cursor-pointer rounded-lg px-4 py-2 transition-all duration-200
+      text-gray-600
+      data-[state=active]:bg-[#18977C]
+      data-[state=active]:text-white
+      data-[state=active]:shadow-md
+    "
+          >
+            Form
+          </TabsTrigger>
+
+          <TabsTrigger
+            value="preview"
+            className="
+      cursor-pointer rounded-lg px-4 py-2 transition-all duration-200
+      text-gray-600
+      data-[state=active]:bg-[#18977C]
+      data-[state=active]:text-white
+      data-[state=active]:shadow-md
+    "
+          >
+            Markdown
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="edit">
@@ -293,13 +324,23 @@ export default function ResumeBuilder({ initialContent }) {
             {/* Contact Information */}
             <div className="space-y-4">
               <h3 className="text-lg font-medium">Contact Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg bg-muted/50">
+              {/* Contact Information inputs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg ">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Email</label>
                   <Input
                     {...register("contactInfo.email")}
                     type="email"
                     placeholder="your@email.com"
+                    className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                     error={errors.contactInfo?.email}
                   />
                   {errors.contactInfo?.email && (
@@ -314,6 +355,15 @@ export default function ResumeBuilder({ initialContent }) {
                     {...register("contactInfo.mobile")}
                     type="tel"
                     placeholder="+1 234 567 8900"
+                    className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                   />
                   {errors.contactInfo?.mobile && (
                     <p className="text-sm text-red-500">
@@ -327,6 +377,15 @@ export default function ResumeBuilder({ initialContent }) {
                     {...register("contactInfo.linkedin")}
                     type="url"
                     placeholder="https://linkedin.com/in/your-profile"
+                    className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                   />
                   {errors.contactInfo?.linkedin && (
                     <p className="text-sm text-red-500">
@@ -342,6 +401,15 @@ export default function ResumeBuilder({ initialContent }) {
                     {...register("contactInfo.twitter")}
                     type="url"
                     placeholder="https://twitter.com/your-handle"
+                    className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                   />
                   {errors.contactInfo?.twitter && (
                     <p className="text-sm text-red-500">
@@ -350,6 +418,7 @@ export default function ResumeBuilder({ initialContent }) {
                   )}
                 </div>
               </div>
+              {/* end of Contact Information inputs */}
             </div>
 
             {/* Summary */}
@@ -361,8 +430,17 @@ export default function ResumeBuilder({ initialContent }) {
                 render={({ field }) => (
                   <Textarea
                     {...field}
-                    className="h-32"
                     placeholder="Write a compelling professional summary..."
+                    className="
+      h-32
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                     error={errors.summary}
                   />
                 )}
@@ -381,7 +459,16 @@ export default function ResumeBuilder({ initialContent }) {
                 render={({ field }) => (
                   <Textarea
                     {...field}
-                    className="h-32"
+                    className="
+      h-32
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                     placeholder="List your key skills..."
                     error={errors.skills}
                   />
@@ -462,7 +549,7 @@ export default function ResumeBuilder({ initialContent }) {
             <Button
               variant="link"
               type="button"
-              className="mb-2"
+              className="mb-2 cursor-pointer"
               onClick={() =>
                 setResumeMode(resumeMode === "preview" ? "edit" : "preview")
               }

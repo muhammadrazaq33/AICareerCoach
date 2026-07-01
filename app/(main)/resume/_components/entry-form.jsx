@@ -143,6 +143,15 @@ export function EntryForm({ type, entries, onChange }) {
               <div className="space-y-2">
                 <Input
                   placeholder="Title/Position"
+                  className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                   {...register("title")}
                   error={errors.title}
                 />
@@ -153,6 +162,15 @@ export function EntryForm({ type, entries, onChange }) {
               <div className="space-y-2">
                 <Input
                   placeholder="Organization/Company"
+                  className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                   {...register("organization")}
                   error={errors.organization}
                 />
@@ -170,6 +188,15 @@ export function EntryForm({ type, entries, onChange }) {
                   type="month"
                   {...register("startDate")}
                   error={errors.startDate}
+                  className="
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                 />
                 {errors.startDate && (
                   <p className="text-sm text-red-500">
@@ -183,6 +210,15 @@ export function EntryForm({ type, entries, onChange }) {
                   {...register("endDate")}
                   disabled={current}
                   error={errors.endDate}
+                  className="
+      bg-primary/5 
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                 />
                 {errors.endDate && (
                   <p className="text-sm text-red-500">
@@ -210,10 +246,20 @@ export function EntryForm({ type, entries, onChange }) {
             <div className="space-y-2">
               <Textarea
                 placeholder={`Description of your ${type.toLowerCase()}`}
-                className="h-32"
+                className="
+      h-32
+      bg-primary/5
+      border border-primary/15
+      rounded-lg
+      placeholder:text-gray-400
+      focus:bg-white
+      transition-all
+      duration-200
+    "
                 {...register("description")}
                 error={errors.description}
               />
+
               {errors.description && (
                 <p className="text-sm text-red-500">
                   {errors.description.message}
@@ -222,7 +268,7 @@ export function EntryForm({ type, entries, onChange }) {
             </div>
             <Button
               type="button"
-              variant="ghost"
+              // variant="ghost"
               size="sm"
               onClick={handleImproveDescription}
               disabled={isImproving || !watch("description")}
@@ -244,6 +290,7 @@ export function EntryForm({ type, entries, onChange }) {
             <Button
               type="button"
               variant="outline"
+              className="border-primary/80 hover:border-primary/40 hover:bg-primary/5 hover:text-[#000] bg-transparent cursor-pointer text-[#000]"
               onClick={() => {
                 reset();
                 setIsAdding(false);
@@ -251,7 +298,11 @@ export function EntryForm({ type, entries, onChange }) {
             >
               Cancel
             </Button>
-            <Button type="button" onClick={handleAdd}>
+            <Button
+              type="button"
+              className="cursor-pointer"
+              onClick={handleAdd}
+            >
               <PlusCircle className="h-4 w-4 mr-2" />
               Add Entry
             </Button>
@@ -261,8 +312,8 @@ export function EntryForm({ type, entries, onChange }) {
 
       {!isAdding && (
         <Button
-          className="w-full"
-          variant="outline"
+          className="w-full cursor-pointer"
+          // variant="outline"
           onClick={() => setIsAdding(true)}
         >
           <PlusCircle className="h-4 w-4 mr-2" />

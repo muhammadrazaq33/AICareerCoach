@@ -41,7 +41,7 @@ const Header = () => {
             </Link>
 
             <Link
-              href="/cover-letter"
+              href="/ai-cover-letter"
               className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
             >
               <PenBox className="h-4 w-4" />
@@ -122,7 +122,7 @@ const Header = () => {
             </Link>
 
             <Link
-              href="/cover-letter"
+              href="/ai-cover-letter"
               className="flex items-center gap-2 text-sm font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -131,7 +131,7 @@ const Header = () => {
             </Link>
 
             <Link
-              href="/interview-prep"
+              href="/interview"
               className="flex items-center gap-2 text-sm font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >

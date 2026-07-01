@@ -39,7 +39,7 @@ export default function Hero() {
             <Link href={"/dashboard"}>
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-12 font-semibold shadow-md hover:shadow-lg transition-all"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-12 font-semibold shadow-md hover:shadow-lg transition-all cursor-pointer"
               >
                 Get Started
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -49,7 +49,7 @@ export default function Hero() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 h-12 font-semibold border-primary/20 hover:border-primary/40 hover:bg-primary/5 bg-transparent"
+                className="text-lg px-8 h-12 font-semibold border-primary/20 hover:border-primary/40 hover:bg-primary/5 hover:text-[#000] bg-transparent cursor-pointer"
               >
                 Watch Demo
               </Button>
