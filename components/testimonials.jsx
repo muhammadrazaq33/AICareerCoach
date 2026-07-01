@@ -9,7 +9,7 @@ const testimonials = [
     role: "Software Engineer",
     company: "Tech Corp",
     content:
-      "CareerHub AI helped me land my dream job at a top tech company. The AI resume builder was incredibly intuitive, and the mock interviews gave me the confidence I needed.",
+      "CareerForge AI helped me land my dream job at a top tech company. The AI resume builder was incredibly intuitive, and the mock interviews gave me the confidence I needed.",
     rating: 5,
     image: "👩‍💻",
   },
@@ -27,7 +27,7 @@ const testimonials = [
     role: "Data Scientist",
     company: "AI Solutions Inc",
     content:
-      "Within 3 weeks of using CareerHub AI, I got interview calls from 5 different companies. The platform is genuinely useful and the AI feedback is spot-on.",
+      "Within 3 weeks of using CareerForge AI, I got interview calls from 5 different companies. The platform is genuinely useful and the AI feedback is spot-on.",
     rating: 5,
     image: "👩‍🔬",
   },

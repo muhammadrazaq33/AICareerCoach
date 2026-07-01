@@ -37,7 +37,7 @@ export default function CTA() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-12 w-full sm:w-auto font-semibold shadow-md"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-12 w-full sm:w-auto font-semibold shadow-md cursor-pointer"
               >
                 Get Started Free
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -45,7 +45,7 @@ export default function CTA() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 h-12 w-full sm:w-auto font-semibold border-primary/20 hover:border-primary/40 hover:bg-primary/5 bg-transparent"
+                className="text-lg px-8 h-12 font-semibold border-primary/20 hover:border-primary/40 hover:bg-primary/5 hover:text-[#000] bg-transparent cursor-pointer"
               >
                 Schedule Demo
               </Button>
