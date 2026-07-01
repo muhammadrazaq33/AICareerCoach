@@ -28,7 +28,7 @@ export default function QuizResult({
 
         {/* Improvement Tip */}
         {result.improvementTip && (
-          <div className="bg-muted p-4 rounded-lg">
+          <div className="bg-primary/5 transition-colors p-4 rounded-lg">
             <p className="font-medium">Improvement Tip:</p>
             <p className="text-muted-foreground">{result.improvementTip}</p>
           </div>
@@ -48,11 +48,16 @@ export default function QuizResult({
                 )}
               </div>
               <div className="text-sm text-muted-foreground">
-                <p>Your answer: {q.userAnswer}</p>
+                {q.isCorrect ? (
+                  <p className="text-green-500">Your answer: {q.userAnswer}</p>
+                ) : (
+                  <p className="text-red-500">Your answer: {q.userAnswer}</p>
+                )}
+                {/* <p>Your answer: {q.userAnswer}</p> */}
                 {!q.isCorrect && <p>Correct answer: {q.answer}</p>}
               </div>
-              <div className="text-sm bg-muted p-2 rounded">
-                <p className="font-medium">Explanation:</p>
+              <div className="text-sm bg-primary/5 transition-colors p-2 rounded-md">
+                <p className="font-semibold">Explanation:</p>
                 <p>{q.explanation}</p>
               </div>
             </div>
@@ -62,7 +67,7 @@ export default function QuizResult({
 
       {!hideStartNew && (
         <CardFooter>
-          <Button onClick={onStartNew} className="w-full">
+          <Button onClick={onStartNew} className="w-full cursor-pointer">
             Start New Quiz
           </Button>
         </CardFooter>

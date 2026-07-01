@@ -36,7 +36,10 @@ export default function QuizList({ assessments }) {
                 Review your past quiz performance
               </CardDescription>
             </div>
-            <Button onClick={() => router.push("/interview/mock")}>
+            <Button
+              onClick={() => router.push("/interview/mock")}
+              className="cursor-pointer"
+            >
               Start New Quiz
             </Button>
           </div>
@@ -46,7 +49,7 @@ export default function QuizList({ assessments }) {
             {assessments?.map((assessment, i) => (
               <Card
                 key={assessment.id}
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
+                className="cursor-pointer hover:bg-primary/5 transition-colors"
                 onClick={() => setSelectedQuiz(assessment)}
               >
                 <CardHeader>

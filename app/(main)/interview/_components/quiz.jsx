@@ -110,7 +110,7 @@ export default function Quiz() {
           </p>
         </CardContent>
         <CardFooter>
-          <Button onClick={generateQuizFn} className="w-full">
+          <Button onClick={generateQuizFn} className="w-full cursor-pointer">
             Start Quiz
           </Button>
         </CardFooter>
@@ -136,16 +136,23 @@ export default function Quiz() {
         >
           {question.options.map((option, index) => (
             <div key={index} className="flex items-center space-x-2">
-              <RadioGroupItem value={option} id={`option-${index}`} />
+              <RadioGroupItem
+                value={option}
+                id={`option-${index}`}
+                className="border border-2 border-primary cursor-pointer"
+              />
               <Label htmlFor={`option-${index}`}>{option}</Label>
             </div>
           ))}
         </RadioGroup>
 
         {showExplanation && (
-          <div className="mt-4 p-4 bg-muted rounded-lg">
-            <p className="font-medium">Explanation:</p>
-            <p className="text-muted-foreground">{question.explanation}</p>
+          <div
+            className="mt-4 p-4 rounded-lg bg-primary/5
+      border border-primary/15"
+          >
+            <p className="font-bold text-[20px] mb-2">Explanation:</p>
+            <p className="text-[#000] leading-tight">{question.explanation}</p>
           </div>
         )}
       </CardContent>
@@ -153,7 +160,18 @@ export default function Quiz() {
         {!showExplanation && (
           <Button
             onClick={() => setShowExplanation(true)}
-            variant="outline"
+            className=" bg-white
+    text-[#18977C]
+    hover:bg-[#18977C]
+    hover:text-white
+    border border-primary/30
+    transition-all
+    duration-200
+    shadow-sm
+    hover:shadow-md
+    disabled:opacity-50
+    cursor-pointer
+   "
             disabled={!answers[currentQuestion]}
           >
             Show Explanation
@@ -162,7 +180,7 @@ export default function Quiz() {
         <Button
           onClick={handleNext}
           disabled={!answers[currentQuestion] || savingResult}
-          className="ml-auto"
+          className="ml-auto cursor-pointer p-4.5"
         >
           {savingResult && (
             <BarLoader className="mt-4" width={"100%"} color="gray" />
