@@ -157,6 +157,10 @@ const DashboardView = ({ insights }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip
+                  cursor={{
+                    fill: "#18977C",
+                    fillOpacity: 0.2,
+                  }}
                   content={({ active, payload, label }) => {
                     if (active && payload && payload.length) {
                       return (
@@ -173,9 +177,12 @@ const DashboardView = ({ insights }) => {
                     return null;
                   }}
                 />
-                <Bar dataKey="min" fill="#94a3b8" name="Min Salary (K)" />
-                <Bar dataKey="median" fill="#64748b" name="Median Salary (K)" />
-                <Bar dataKey="max" fill="#475569" name="Max Salary (K)" />
+                {/* <Bar dataKey="min" fill="#94a3b8" name="Min Salary (K)" /> */}
+                {/* <Bar dataKey="median" fill="#64748b" name="Median Salary (K)" /> */}
+                {/* <Bar dataKey="max" fill="#475569" name="Max Salary (K)" /> */}
+                <Bar dataKey="min" fill="#7CCBB8" name="Min Salary (K)" />
+                <Bar dataKey="median" fill="#3DAA91" name="Median Salary (K)" />
+                <Bar dataKey="max" fill="#18977C" name="Max Salary (K)" />
               </BarChart>
             </ResponsiveContainer>
           </div>
